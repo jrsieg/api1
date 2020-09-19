@@ -1,21 +1,33 @@
-let pokemonList = document.querySelector('ul');
-randomNum = Math.floor((Math.random() * 20) + 1);
+
+
+let pokemonList = document.querySelector("#pokemonList");
+
 const submitBtn = document.querySelector('.submit');
 
 
 submitBtn.addEventListener('click', fetchResults);
 
 function fetchResults(){
-  fetch('https://pokeapi.co/api/v2/pokemon/') 
-  .then(function(response) {   
-    return response.json(); 
-  })
-  .then(function(json) {
-      let pokemon = json.results[randomNum]
-      console.log(pokemon.name);
-      let listItem = document.createElement('li'); 
-      listItem.innerHTML = '<p>' + pokemon.name + '</p>'; 
-      pokemonList.appendChild(listItem);  
 
-  });
+  while (pokemonList.firstChild){
+    pokemonList.removeChild(pokemonList.firstChild)
+  }
+
+
+
+  
+    fetch('https://pokeapi.co/api/v2/pokemon/') 
+    .then(function(response) {   
+      return response.json(); 
+    })
+    .then(function(json) {
+        randomNum = Math.floor((Math.random() * 20) + 1);
+        let pokemon = json.results[randomNum]
+        console.log(pokemon.name);
+        let listItem = document.createElement('li'); 
+        listItem.innerHTML = '<p>' + pokemon.name + '</p>'; 
+        pokemonList.appendChild(listItem);  
+
+    });
+  
 };
